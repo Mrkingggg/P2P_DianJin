@@ -8,7 +8,7 @@ cur = conn.cursor()
 
 create_db = "CREATE DATABASE p2p"
 
-cur.execute(create_db)
+# cur.execute(create_db)
 
 sql_ip_table = """
 CREATE table IPs(
@@ -21,17 +21,30 @@ cur.execute(sql_ip_table)
 sql_insert = "insert into IPs (ip) values ('%s') " % ("192.158.1.38")
 
 # sql =" select * from IPs"
-try:
-    cur.execute(sql_insert)
-    conn.commit()
-    print("Success")
-except:
-    conn.rollback()
-    print("Failed")
+# try:
+#     cur.execute(sql_insert)
+#     conn.commit()
+#     print("Success")
+# except:
+#     conn.rollback()
+#     print("Failed")
 
-sql_select = "Select * from IPs"
-cur.execute(sql_select)
-res = cur.fetchall()
-print(res)
+# sql_select = "Select * from IPs"
+# cur.execute(sql_select)
+# res = cur.fetchall()
+# print(res)
+
+# For user to ban someone. People banned cannot chat with the user
+sql_table_status = """
+    Create table usr_stat(
+        sid int AUTO_INCREMENT primary key,
+        opeID int not null,
+        bannedID int not null,
+        FOREIGN KEY (opeID) REFERENCES IPs(ipid),
+        FOREIGN KEY(bannedID) REFERENCES IPs(ipid)
+    )
+"""
+cur.execute(sql_table_status)
+
 cur.close()
 conn.close()
