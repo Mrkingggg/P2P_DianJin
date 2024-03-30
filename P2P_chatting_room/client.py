@@ -18,8 +18,8 @@ def general_client():
         print(f"{regis_msg}")
 
 
-        conn_msg = client_socket.recv(1024).decode('utf-8')
-        print(f"{conn_msg}")
+        # conn_msg = client_socket.recv(1024).decode('utf-8')
+        # print(f"{conn_msg}")
         
         target_ip = input('input target ip:').strip()
         target_port = int(input('input target port:').strip())
@@ -28,8 +28,10 @@ def general_client():
 
         # valid/invalid user feedback:
         feedback = client_socket.recv(1024).decode('utf-8')
+        print(feedback)
+        
         if feedback != "This user is not available. Change a user or quit.":
-            break
+           print("succeed!")
 
         print(client_socket.recv(1024).decode('utf-8'))
 
