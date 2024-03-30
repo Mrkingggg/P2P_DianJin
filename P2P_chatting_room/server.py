@@ -1,5 +1,5 @@
 import socket
-import threading
+import threading,pickle
 
 HOST = "127.0.0.1"
 PORT = 65432
@@ -19,9 +19,23 @@ def thread_chat(client_socket, client_addr, clients, lock):
             with lock:
                 clients[client_addr] = visibility  
                 print(f"client {client_addr}: {visibility}, Registered Successfully")
-                client_socket.send("Registered Successfully".encode('utf-8'))
+                client_socket.send("Registered Successfully\n".encode('utf-8'))
                 print(f"online users:{clients}")
-
+            
+            client_socket.send("To which IP address you want to send message?\n".encode('utf-8'))
+            tar_addr = pickle.loads(client_socket.recv(1024))
+            
+            client_socket.send("receive port !".encode('utf-8'))
+            print(tar_addr)
+            while tar_addr not in clients:
+                client_socket.send("This user is not available. Change a user or quit.".encode('utf-8'))
+                tar_addr = client_socket.recv(1024).decode('utf-8')
+            #     if tar_addr.lower() == 'quit':
+            #         break
+            
+            # if tar_addr.lower() == 'quit':
+            #     break
+            client_socket.send(f"user {tar_addr} is available. Send message now!")
     finally:
         with lock:
             if client_addr in clients:
