@@ -35,7 +35,7 @@ def thread_chat(client_socket, client_addr, clients, lock):
             
             # if tar_addr.lower() == 'quit':
             #     break
-            client_socket.send(f"user {tar_addr} is available. Send message now!")
+            client_socket.send(f"user is available. Send message now!")
     finally:
         with lock:
             if client_addr in clients:

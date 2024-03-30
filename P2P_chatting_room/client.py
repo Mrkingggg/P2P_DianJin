@@ -20,16 +20,16 @@ def general_client():
 
         conn_msg = client_socket.recv(1024).decode('utf-8')
         print(f"{conn_msg}")
-        while True:
-            target_ip = input('input target ip:').strip()
-            target_port = int(input('input target port:').strip())
-            target_tuple = (target_ip, target_port)
-            client_socket.send(pickle.dumps(target_tuple))
+        
+        target_ip = input('input target ip:').strip()
+        target_port = int(input('input target port:').strip())
+        target_tuple = (target_ip, target_port)
+        client_socket.send(pickle.dumps(target_tuple))
 
-            # valid/invalid user feedback:
-            client_socket.recv(1024).decode('utf-8')
-            if client_socket !="This user is not available. Change a user or quit.":
-                break
+        # valid/invalid user feedback:
+        feedback = client_socket.recv(1024).decode('utf-8')
+        if feedback != "This user is not available. Change a user or quit.":
+            break
 
         print(client_socket.recv(1024).decode('utf-8'))
 
