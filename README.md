@@ -20,7 +20,7 @@ User choose whether or not to be discovered by other users. The answer: True/Fal
 - During the input for target ip selecting, the process is blocked and will not display messages from other users.
 - After connecting to the target ip, the user terminal will display all messages store in the message queue from other users.
 - When inputting messages to target ip, user could also receive and see messages real time from others. But user's current inputting will not be disturbed, owe to python prompt kit
-<img width="1174" alt="image" src="https://github.com/Mrkingggg/P2P_DianJin/assets/105716817/b6b42edd-e002-4a8a-ae2b-c0a96a37995a">
+<img width="1166" alt="image" src="https://github.com/Mrkingggg/P2P_DianJin/assets/105716817/64698c08-6bb5-465e-a5ab-81d36f12f086">
 
 
 ### Offline: 
