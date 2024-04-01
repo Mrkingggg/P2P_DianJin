@@ -15,6 +15,8 @@ User choose whether or not to be discovered by other users. The answer: True/Fal
 
 <img width="1169" alt="image" src="https://github.com/Mrkingggg/P2P_DianJin/assets/105716817/aca60a70-2985-4fad-9842-25e82e14964e">
 
+### Select an IP address and chatting:
+After the registration with discovery availability, user could input an ip (host and port) 
 
 ### Offline: 
 When a user get offline and shut down the client thread, the bracket will delete the user's ip record. 
