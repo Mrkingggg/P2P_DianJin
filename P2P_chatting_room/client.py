@@ -4,7 +4,7 @@ import pickle
 from prompt_toolkit import PromptSession
 from prompt_toolkit.patch_stdout import patch_stdout
 import queue
-
+import mysql.connector
 HOST = "127.0.0.1"
 PORT = 65432
 msg_queue = queue.Queue()
