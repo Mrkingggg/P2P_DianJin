@@ -18,7 +18,7 @@ def store_local_messages(msg, target_host, target_port):
         database="p2p"  
     )
      cursor = db.cursor()
-     sql = "INSERT INTO offline_msg (targetHost,targetPort, msg) VALUES (%s, %d, %s)"
+     sql = "INSERT INTO offline_msg (targetHost,targetPort, msg) VALUES (%s, %s, %s)"  # number should also use %s
      val = (target_host,target_port,msg)
      cursor.execute(sql, val)
      db.commit()
@@ -72,7 +72,7 @@ def general_client():
             if feedback == "This user is not available. Change a user or quit.":
                     message = session.prompt("Enter your message: ")
                     if message.strip():
-                        store_local_messages(target_ip, target_port, message)
+                        store_local_messages(message, target_ip, target_port)
                         print("Message saved for when the user becomes available.")
                     else:
                         print("No messages to save.")
