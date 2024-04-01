@@ -22,11 +22,11 @@ User choose whether or not to be discovered by other users. The answer: True/Fal
 - When inputting messages to target ip, user could also receive and see messages real time from others. But user's current inputting will not be disturbed, owe to python prompt kit
 <img width="1194" alt="image" src="https://github.com/Mrkingggg/P2P_DianJin/assets/105716817/6ee0ec79-3191-4250-b0b5-f2da6f463100">
 
-- Change user to chat with:
+### Change user to chat with:
 
 <img width="372" alt="image" src="https://github.com/Mrkingggg/P2P_DianJin/assets/105716817/fbe2a7f9-327b-4049-a8a2-2647898fa782">
 
-- Quit the chatting system:
+### Quit the chatting system:
 
 <img width="369" alt="image" src="https://github.com/Mrkingggg/P2P_DianJin/assets/105716817/5eff1392-2f5f-4ce0-bb23-e969d829184e">
 
