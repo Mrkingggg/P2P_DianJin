@@ -94,7 +94,7 @@ def listen_for_incoming_messages(local_port):
             conn, addr = listener.accept()
             with conn:
                 msg = conn.recv(1024).decode('utf-8')
-                msg_queue.put(f"Message from {addr[0]}:{addr[1]}: {msg}")
+                msg_queue.put(f"Message from {addr[0]}: {msg}")
 
 def display_messages(session):
     while True:
@@ -130,7 +130,7 @@ def general_client():
             print(feedback)
 
             if feedback != "This user is not available. Change a user or quit.":
-                threading.Thread(target=display_messages, args=(session,), daemon=True).start()
+                threading.Thread(target=display_messages, args=(session,), daemon=True).start() 
                 while True:
                     message = session.prompt("Me:(type 'end' to leave) ")
                     if message.lower() == 'end':
