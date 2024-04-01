@@ -13,7 +13,8 @@ sql_table_offline_msg ="""
 
 create table offline_msg(
     offid int AUTO_INCREMENT primary key,
-    targetIP varchar(255) not null,
+    targetHost varchar(255) not null,
+    targetPort int not null,
     msg varchar(255) not null
 )
 """

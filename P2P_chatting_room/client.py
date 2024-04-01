@@ -9,6 +9,23 @@ HOST = "127.0.0.1"
 PORT = 65432
 msg_queue = queue.Queue()
 
+
+def store_local_messages(msg, target_host, target_port):
+     db = mysql.connector.connect(
+        host="localhost",  
+        user="root", 
+        password="root1234", 
+        database="p2p"  
+    )
+     cursor = db.cursor()
+     sql = "INSERT INTO offline_msg (targetHost,targetPort, msg) VALUES (%s, %d, %s)"
+     val = (target_host,target_port,msg)
+     cursor.execute(sql, val)
+     db.commit()
+     cursor.close()
+     db.close()
+
+
 def listen_for_incoming_messages(local_port):
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as listener:
         listener.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -47,13 +64,20 @@ def general_client():
 
     with patch_stdout():
         while True:
-            target_ip = session.prompt('Input target IP: ')
+            target_ip = session.prompt('Input target IP host: ')
             target_port = int(session.prompt('Input target port: '))
             client_socket.send(pickle.dumps((target_ip, target_port)))
             feedback = client_socket.recv(1024).decode('utf-8')
             print(feedback)
+            if feedback == "This user is not available. Change a user or quit.":
+                    message = session.prompt("Enter your message: ")
+                    if message.strip():
+                        store_local_messages(target_ip, target_port, message)
+                        print("Message saved for when the user becomes available.")
+                    else:
+                        print("No messages to save.")
 
-            if feedback != "This user is not available. Change a user or quit.":
+            else:
                 threading.Thread(target=display_messages, args=(session,), daemon=True).start() 
                 while True:
                     message = session.prompt("Me:(type 'end' to leave) ")
