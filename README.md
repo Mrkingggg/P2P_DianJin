@@ -30,7 +30,23 @@ User choose whether or not to be discovered by other users. The answer: True/Fal
 
 <img width="369" alt="image" src="https://github.com/Mrkingggg/P2P_DianJin/assets/105716817/5eff1392-2f5f-4ce0-bb23-e969d829184e">
 
+### Store message locally:
+When the target ip is not available to send messages to, user could select whether or not to send messages. 
+#### If choose to send, the message will store in user's local database table, which will record target ip and messages. 
+- Store message:
+<img width="546" alt="image" src="https://github.com/Mrkingggg/P2P_DianJin/assets/105716817/857ad5f3-214b-42d2-a62e-1a44337a97af">
 
-### Offline: 
+- table construct:
+<img width="424" alt="image" src="https://github.com/Mrkingggg/P2P_DianJin/assets/105716817/e150f2d3-34c5-49fd-9c85-083a9633ee4f">
+
+- store result:
+<img width="749" alt="image" src="https://github.com/Mrkingggg/P2P_DianJin/assets/105716817/320ff3f1-61e4-45db-80ef-91ac0e2eb894">
+
+#### If choose not to send, just input return. User could quit or change an ip to chat.
+<img width="516" alt="image" src="https://github.com/Mrkingggg/P2P_DianJin/assets/105716817/f73f36be-9298-4875-9bf4-97a2c36aa203">
+
+
+
+### Get Offline: 
 When a user get offline and shut down the client thread, the bracket will delete the user's ip record. 
 <img width="539" alt="image" src="https://github.com/Mrkingggg/P2P_DianJin/assets/105716817/67f015ea-6210-45a0-91f4-1d6a60435529">
