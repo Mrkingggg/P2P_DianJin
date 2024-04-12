@@ -5,25 +5,54 @@ from prompt_toolkit import PromptSession
 from prompt_toolkit.patch_stdout import patch_stdout
 import queue
 import mysql.connector
+import re
+import os
+
+from cryptography.fernet import Fernet
+
+
+
 HOST = "127.0.0.1"
 PORT = 65432
 msg_queue = queue.Queue()
 
+db_config = {
+    "host": os.getenv("DB_HOST", "localhost"),
+    "user": os.getenv("DB_USER", "root"),
+    "password": os.getenv("DB_PASSWORD", "root1234"),
+    "database": os.getenv("DB_NAME", "p2p")
+}
+
+def encrypt_message(message):
+    key = Fernet.generate_key()
+    cipher_suite = Fernet(key)
+    encrypted_message = cipher_suite.encrypt(message.encode())
+    return encrypted_message
+
+def decrypt_message(encrypted_message, key):
+    cipher_suite = Fernet(key)
+    decrypted_message = cipher_suite.decrypt(encrypted_message).decode()
+    return decrypted_message
+
+def validate_ip(ip_address):
+    pattern = r'^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$'
+    if not re.match(pattern, ip_address):
+        raise ValueError("Invalid IP address format.")
+        
+def validate_port(port):
+    if not (0 <= int(port) <= 65535):
+        raise ValueError("Port number must be in 0-65535.")
+
 
 def store_local_messages(msg, target_host, target_port):
-     db = mysql.connector.connect(
-        host="localhost",  
-        user="root", 
-        password="root1234", 
-        database="p2p"  
-    )
-     cursor = db.cursor()
-     sql = "INSERT INTO offline_msg (targetHost,targetPort, msg) VALUES (%s, %s, %s)"  # number should also use %s
-     val = (target_host,target_port,msg)
-     cursor.execute(sql, val)
-     db.commit()
-     cursor.close()
-     db.close()
+    db = mysql.connector.connect(**db_config)
+    cursor = db.cursor()
+    sql = "INSERT INTO offline_msg (targetHost,targetPort, msg) VALUES (%s, %s, %s)"  # number should also use %s
+    val = (target_host,target_port,msg)
+    cursor.execute(sql, val)
+    db.commit()
+    cursor.close()
+    db.close()
 
 
 def listen_for_incoming_messages(local_port):
